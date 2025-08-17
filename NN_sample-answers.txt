@@ -1,0 +1,62 @@
+Exercise 2 Analysis: Neural Network Hidden Layer Size Effects
+
+EXPERIMENTAL SETUP:
+- Dataset: Planar dataset (binary classification)
+- Hidden layer sizes tested: [1, 2, 3, 4, 5, 20, 50]
+- Training iterations: 5000
+- Results obtained:
+  * 1 hidden unit: 67.50%
+  * 2 hidden units: 67.25%
+  * 3 hidden units: 91.00%
+  * 4 hidden units: 90.75%
+  * 5 hidden units: 91.50%
+  * 20 hidden units: 91.25%
+  * 50 hidden units: 90.25%
+
+QUESTION 1: What happens when the number of hidden nodes increase?
+
+Answer: When the number of hidden nodes increases, the following pattern emerges:
+
+Initial Phase (1-2 nodes): Very poor performance with accuracy around 67%, indicating severe underfitting. The model lacks sufficient capacity to learn the decision boundary.
+
+Critical Improvement (2→3 nodes): A dramatic jump in accuracy from 67.25% to 91.00% - an improvement of nearly 24 percentage points. This represents the transition from underfitting to adequate model complexity.
+
+Optimal Range (3-5 nodes): Peak performance is achieved with 5 hidden units at 91.50% accuracy. The model performs consistently well in this range (91.00% - 91.50%).
+
+High Complexity Phase (20-50 nodes): Performance remains relatively stable but shows slight decline from 91.25% to 90.25%, suggesting the beginning of overfitting tendencies or unnecessary complexity.
+
+QUESTION 2: Can you explain the pattern of the accuracy when the hidden nodes increase?
+
+Answer: The accuracy pattern demonstrates the classical bias-variance tradeoff and follows three distinct phases:
+
+Phase 1: SEVERE UNDERFITTING (1-2 nodes)
+- Observation: Accuracy stuck around 67%
+- Explanation: The model has insufficient parameters to capture the complexity of the planar dataset's decision boundary. With only 1-2 hidden units, the neural network cannot learn the non-linear patterns required for this classification task.
+- Theoretical basis: High bias, low variance - the model is too simple.
+
+Phase 2: OPTIMAL COMPLEXITY (3-5 nodes)
+- Observation: Sharp improvement to ~91% accuracy and peak performance at 5 nodes
+- Explanation: The model now has sufficient capacity to learn the underlying pattern without overfitting. This represents the "sweet spot" where the network can capture the essential features of the decision boundary.
+- Theoretical basis: Balanced bias-variance tradeoff achieving good generalization.
+
+Phase 3: STABILITY WITH SLIGHT OVERFITTING SIGNS (20-50 nodes)
+- Observation: Performance plateaus around 91% but shows minor decline (91.25% → 90.25%)
+- Explanation: Additional parameters don't improve performance significantly and may lead to slight overfitting. The model has more capacity than needed for this relatively simple dataset.
+- Theoretical basis: Low bias, potentially increasing variance.
+
+Overall Pattern Explanation:
+The results clearly illustrate the capacity control principle in neural networks:
+
+1. Insufficient Capacity: Models with 1-2 nodes cannot represent the required decision boundary complexity, resulting in systematic underfitting.
+
+2. Adequate Capacity: 3-5 nodes provide sufficient expressiveness to learn the task without overfitting, achieving optimal performance.
+
+3. Excess Capacity: Beyond 5 nodes, additional parameters don't improve performance and may slightly hurt generalization due to overfitting.
+
+The most significant finding is the dramatic performance jump between 2 and 3 hidden units, suggesting that this particular dataset requires a minimum threshold of model complexity to be learned effectively.
+
+CONCLUSIONS:
+- Optimal hidden layer size: 5 nodes (91.50% accuracy)
+- Minimum viable complexity: 3 nodes (first to achieve >90% accuracy)
+- Key insight: For this planar classification task, there's a critical threshold effect where insufficient nodes (<3) lead to dramatic performance degradation, while excess nodes (>5) provide minimal benefit and slight performance decline.
+- Practical implication: Start with 3-5 hidden units for similar binary classification tasks, as this range provides the best balance of performance and efficiency.
